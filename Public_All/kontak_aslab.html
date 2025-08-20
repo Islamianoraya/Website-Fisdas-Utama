@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>kontak_aslab</title>
+  <style>
+    /* Dari sini */
+    * {
+      box-sizing: border-box;
+    }
+
+      body {
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  height: 100vh;
+  font-family: sans-serif;
+  background: linear-gradient(-45deg, #e3e3e3, #d4d4d4, #f5f5f5, #eeeeee);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  }
+
+  @keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+   .main {
+  padding: 60px 20px 20px 20px;  /* kurangi jarak dari header */
+  flex-grow: 1;
+  margin-left: 0px;
+  transition: margin-left 0.4s ease;
+}
+
+
+  .toggle-btn {
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #065084;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+    .sidebar {
+      width: 220px;
+      background-color: #113F64;
+      height: 100vh;
+      color: white;
+      padding-top: 60px;
+      position: fixed;
+      left: -220px;
+      top: 0;
+      bottom: 0;
+      transition: left 0.4s ease;
+      z-index: 1001;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeIn 0.8s ease-in;
+    }
+
+.sidebar a {
+  display: flex;
+  align-items: center; /* sejajarkan ikon dan teks vertikal */
+  gap: 10px; /* jarak antara ikon dan teks */
+  color: white;
+  text-decoration: none;
+  padding: 15px 20px;
+  transition: background 0.3s;
+}
+
+.sidebar a svg {
+  flex-shrink: 0; /* mencegah ikon mengecil */
+}
+
+
+.sidebar a:hover {
+      background-color: #065084;
+    }
+
+      .logout-btn {
+      margin-top: 30px;
+      display: block;
+      text-align: center;
+      color: red;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+   .page-header {
+    left: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+
+.header-right {
+  margin-left: auto;
+}
+
+.logout-header-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logout-header-btn:hover {
+  background-color: #e04345;
+  transform: scale(1.03);
+}
+
+.header-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.toggle-btn {
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #065084;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+.page-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100; /* DIBUAT LEBIH TINGGI DARI SEMUANYA */
+  background-color: #113F64;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.sidebar {
+  z-index: 1001;
+}
+
+.sidebar-logo {
+  width: 120px;       /* Atur lebar sesuai kebutuhan */
+  margin: 20px auto;  /* Tengah */
+  display: block;
+  filter: drop-shadow(0 0 2px white);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(3px);
+  display: none;
+  z-index: 1000;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.main.blurred {
+  filter: blur(3px);
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+}
+#searchInput {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#searchInput:focus {
+    border-color: #22c55e; /* hijau */
+}
+
+/* Card Aslab */
+.aslab-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 14px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease;
+    margin-bottom: 5px;
+}
+
+.aslab-card:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+/* Nama & Nomor */
+.aslab-card .nama {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.aslab-card .nomor {
+    font-size: 13px;
+    color: #666;
+}
+
+/* Tombol Chat */
+.chat-btn {
+    background-color: #22c55e;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.chat-btn:hover {
+    background-color: #16a34a;
+}
+</style>
+</head>
+<body>
+
+<!-- Header atas -->
+<header class="page-header">
+  <div class="header-left">
+    <div class="toggle-btn" onclick="toggleSidebar()">☰</div>
+    <span id="header-username" style="font-size: 18px; font-weight: bold;"></span>
+  </div>
+  <div class="header-right">
+    <button class="logout-header-btn" onclick="logout()">Keluar</button>
+  </div>
+</header>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <img src="gambar_web/logo putih.png" alt="Logo FISLAB" class="sidebar-logo" />
+   <a href="dasbor_all.html">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dasbor Laboratorium
+  </a>
+  <a href="modul_praktikum_all.html">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <polyline points="10 9 9 9 8 9"></polyline>
+    </svg>
+    Modul Praktikum
+  </a>
+    <a href="jadwal_praktikum.html">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="16" y1="2" x2="16" y2="6"></line>
+      <line x1="8" y1="2" x2="8" y2="6"></line>
+      <line x1="3" y1="10" x2="21" y2="10"></line>
+    </svg>
+    Jadwal Praktikum
+  </a>
+    <a href="kelompok_praktikan.html">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
+       viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+    <circle cx="9" cy="7" r="4"/>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+    Kelompok Praktikan
+  </a>
+ <a href="kontak_aslab.html">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
+       viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 
+             19.79 19.79 0 0 1-8.63-3.07 
+             19.5 19.5 0 0 1-6-6 
+             19.79 19.79 0 0 1-3.07-8.63 
+             A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 
+             c.12.81.37 1.6.72 2.34 
+             a2 2 0 0 1-.45 2.11L8 9
+             a16 16 0 0 0 6 6l.83-.83
+             a2 2 0 0 1 2.11-.45
+             c.74.35 1.53.6 2.34.72
+             a2 2 0 0 1 1.72 2.46z"></path>
+  </svg>
+  Kontak Asisten Laboratorium
+</a>
+  <a href="penilaian_praktikan.html">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 20h9"></path>
+      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+    </svg>
+    Penilaian Praktikan
+  </a>
+    <a href="nilai_praktikan.html">
+ <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
+       viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="8" r="7"/>
+    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+  </svg>
+    Nilai Praktikum
+  </a>
+  <a href="inventaris_laboratorium.html">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"></path>
+      <circle cx="12" cy="10" r="3"></circle>
+    </svg>
+    Inventaris Laboratorium
+  </a>
+</div>
+
+<!-- Tambahkan ini di <body>, tepat setelah sidebar, animasi sidebar -->
+<div class="overlay" id="overlay"></div>
+
+<!-- margin di body utama -->
+<div class="main" id="main-content">
+
+<!-- Search Bar -->
+<div class="mt-4">
+    <input id="searchInput" type="text" placeholder="Cari Asisten..." 
+        class="w-full px-4 py-2 rounded border focus:outline-none focus:ring-2 focus:ring-green-400" 
+        oninput="filterAslab()" />
+</div>
+
+<!-- Daftar Aslab -->
+<div id="aslabList" class="mt-4 space-y-4">
+
+    <!-- Nama dan Kontak Aslab -->
+    <div class="aslab-card flex justify-between items-center">
+        <div>
+            <div class="font-bold nama">Silvia Nur Aziza (Koor)</div>
+            <div class="text-sm text-gray-600 nomor">083849583970</div>
+        </div>
+        <a href="https://wa.me/6283849583970" target="_blank" class="chat-btn">
+            Chat
+        </a>
+    </div>
+
+    <div class="aslab-card flex justify-between items-center">
+        <div>
+            <div class="font-bold nama">Raya Islami Putra Atmaja (Koor)</div>
+            <div class="text-sm text-gray-600 nomor">085175383590</div>
+        </div>
+        <a href="https://wa.me/6285175383590" target="_blank" class="chat-btn">
+            Chat
+        </a>
+    </div>
+
+    <div class="aslab-card flex justify-between items-center">
+        <div>
+            <div class="font-bold nama">Michael Putra Nababan (Koor)</div>
+            <div class="text-sm text-gray-600 nomor">085882676920</div>
+        </div>
+        <a href="https://wa.me/6285882676920" target="_blank" class="chat-btn">
+            Chat
+        </a>
+    </div>
+
+    <div class="aslab-card flex justify-between items-center">
+        <div>
+            <div class="font-bold nama">Eksilistya Kartika R (Koor)</div>
+            <div class="text-sm text-gray-600 nomor">081252551116</div>
+        </div>
+        <a href="https://wa.me/081252551116" target="_blank" class="chat-btn">
+            Chat
+        </a>
+    </div>
+
+    <div class="aslab-card flex justify-between items-center">
+        <div>
+            <div class="font-bold nama">Miftakhul Mu’arofah (Koor)</div>
+            <div class="text-sm text-gray-600 nomor">085546910090</div>
+        </div>
+        <a href="https://wa.me/085546910090" target="_blank" class="chat-btn">
+            Chat
+        </a>
+    </div>
+
+    <div class="aslab-card flex justify-between items-center">
+        <div>
+            <div class="font-bold nama">Abdel Rafe Alem</div>
+            <div class="text-sm text-gray-600 nomor">083867033289</div>
+        </div>
+        <a href="https://wa.me/6283867033289" target="_blank" class="chat-btn">
+            Chat
+        </a>
+    </div>
+
+      <div class="aslab-card flex justify-between items-center">
+        <div>
+            <div class="font-bold nama">Abraham Jeconio Caesario</div>
+            <div class="text-sm text-gray-600 nomor">081273049930</div>
+        </div>
+        <a href="https://wa.me/081273049930" target="_blank" class="chat-btn">
+            Chat
+        </a>
+    </div>
+
+      <div class="aslab-card flex justify-between items-center">
+        <div>
+            <div class="font-bold nama">Achmad Sarnubi</div>
+            <div class="text-sm text-gray-600 nomor">081283575886</div>
+        </div>
+        <a href="https://wa.me/081283575886" target="_blank" class="chat-btn">
+            Chat
+        </a>
+    </div>
+
+     <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ahmad Daffa Muslihi</div>
+            <div class="text-sm text-gray-600 nomor">082259268944</div>
+        </div>
+        <a href="https://wa.me/6282259268944" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ahmad Danial Alifi</div>
+            <div class="text-sm text-gray-600 nomor">085803431940</div>
+        </div>
+        <a href="https://wa.me/6285803431940" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ahmad Hadafi</div>
+            <div class="text-sm text-gray-600 nomor">089687753327</div>
+        </div>
+        <a href="https://wa.me/6289687753327" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Akhmal Aulia Daffa Praditya</div>
+            <div class="text-sm text-gray-600 nomor">085803055929</div>
+        </div>
+        <a href="https://wa.me/6285803055929" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Akmal Zaim Yafi' Artanto</div>
+            <div class="text-sm text-gray-600 nomor">087874846787</div>
+        </div>
+        <a href="https://wa.me/6287874846787" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Aknaf Bachrudin</div>
+            <div class="text-sm text-gray-600 nomor">0895706023643</div>
+        </div>
+        <a href="https://wa.me/62895706023643" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Alexander Aurelius Berahi</div>
+            <div class="text-sm text-gray-600 nomor">081236811696</div>
+        </div>
+        <a href="https://wa.me/6281236811696" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Alika Sausan Zahra</div>
+            <div class="text-sm text-gray-600 nomor">085219692713</div>
+        </div>
+        <a href="https://wa.me/6285219692713" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Alisa Fadhilah Siwasiwan</div>
+            <div class="text-sm text-gray-600 nomor">081333796975</div>
+        </div>
+        <a href="https://wa.me/6281333796975" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Alviani Zelda</div>
+            <div class="text-sm text-gray-600 nomor">085895999521</div>
+        </div>
+        <a href="https://wa.me/6285895999521" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Alya Cinta Kirana Cipta</div>
+            <div class="text-sm text-gray-600 nomor">085770130747</div>
+        </div>
+        <a href="https://wa.me/6285770130747" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Alysha Nada Salsabilla</div>
+            <div class="text-sm text-gray-600 nomor">081287652685</div>
+        </div>
+        <a href="https://wa.me/6281287652685" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Amalia Putri Nur Firdaus</div>
+            <div class="text-sm text-gray-600 nomor">087780606098</div>
+        </div>
+        <a href="https://wa.me/6287780606098" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Amrizal Rahfaz</div>
+            <div class="text-sm text-gray-600 nomor">085784967717</div>
+        </div>
+        <a href="https://wa.me/6285784967717" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Amru Jundillah</div>
+            <div class="text-sm text-gray-600 nomor">082247143503</div>
+        </div>
+        <a href="https://wa.me/6282247143503" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Andhika Abhipraya Sunjaya</div>
+            <div class="text-sm text-gray-600 nomor">0895325762519</div>
+        </div>
+        <a href="https://wa.me/62895325762519" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Angel Veronica Aprilia Sitorus</div>
+            <div class="text-sm text-gray-600 nomor">089678809934</div>
+        </div>
+        <a href="https://wa.me/6289678809934" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Anis Tika Utami</div>
+            <div class="text-sm text-gray-600 nomor">082223497024</div>
+        </div>
+        <a href="https://wa.me/6282223497024" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Annisa Nur Faadhillah</div>
+            <div class="text-sm text-gray-600 nomor">085648181657</div>
+        </div>
+        <a href="https://wa.me/6285648181657" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Aqil Maulana Azhar</div>
+            <div class="text-sm text-gray-600 nomor">085872318805</div>
+        </div>
+        <a href="https://wa.me/6285872318805" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ariena Carienata Haque</div>
+            <div class="text-sm text-gray-600 nomor">081216695684</div>
+        </div>
+        <a href="https://wa.me/6281216695684" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Arkan Dzaky Syafiq</div>
+            <div class="text-sm text-gray-600 nomor">089503624698</div>
+        </div>
+        <a href="https://wa.me/6289503624698" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Aryaputra Listyan</div>
+            <div class="text-sm text-gray-600 nomor">087818484623</div>
+        </div>
+        <a href="https://wa.me/6287818484623" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Aulia Bilbina Mardiana</div>
+            <div class="text-sm text-gray-600 nomor">085745199611</div>
+        </div>
+        <a href="https://wa.me/6285745199611" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Azzahra Luna Prasetyo</div>
+            <div class="text-sm text-gray-600 nomor">081558836589</div>
+        </div>
+        <a href="https://wa.me/6281558836589" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Bima Dwi Anantyo</div>
+            <div class="text-sm text-gray-600 nomor">083856227839</div>
+        </div>
+        <a href="https://wa.me/6283856227839" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Bintang Aditya Ilham</div>
+            <div class="text-sm text-gray-600 nomor">087784800643</div>
+        </div>
+        <a href="https://wa.me/6287784800643" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Bunga Angelica</div>
+            <div class="text-sm text-gray-600 nomor">08982579160</div>
+        </div>
+        <a href="https://wa.me/628982579160" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Caleb Timothy Hans</div>
+            <div class="text-sm text-gray-600 nomor">0895602171380</div>
+        </div>
+        <a href="https://wa.me/62895602171380" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Chrisdavin Petrisius Glennedo Silalahi</div>
+            <div class="text-sm text-gray-600 nomor">085270269248</div>
+        </div>
+        <a href="https://wa.me/6285270269248" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Daffa Alwafi Khairani</div>
+            <div class="text-sm text-gray-600 nomor">081374630398</div>
+        </div>
+        <a href="https://wa.me/6281374630398" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Daiyan Rafi Rizwanto</div>
+            <div class="text-sm text-gray-600 nomor">082126640177</div>
+        </div>
+        <a href="https://wa.me/6282126640177" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Dania Wijayanti</div>
+            <div class="text-sm text-gray-600 nomor">082232239001</div>
+        </div>
+        <a href="https://wa.me/6282232239001" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Daniel Aji Perdana</div>
+            <div class="text-sm text-gray-600 nomor">081252863410</div>
+        </div>
+        <a href="https://wa.me/6281252863410" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Dava Ferdiansyah</div>
+            <div class="text-sm text-gray-600 nomor">087831564135</div>
+        </div>
+        <a href="https://wa.me/6287831564135" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">David Wijaya</div>
+            <div class="text-sm text-gray-600 nomor">087780973864</div>
+        </div>
+        <a href="https://wa.me/6287780973864" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Deka Anggaraksa Jaladi Brani</div>
+            <div class="text-sm text-gray-600 nomor">082111181189</div>
+        </div>
+        <a href="https://wa.me/6282111181189" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Dimas Alvin Apriyanto</div>
+            <div class="text-sm text-gray-600 nomor">081238714011</div>
+        </div>
+        <a href="https://wa.me/6281238714011" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Dimas Setyo Asmoro</div>
+            <div class="text-sm text-gray-600 nomor">081232029829</div>
+        </div>
+        <a href="https://wa.me/6281232029829" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Dinda Elisya Ariyanto</div>
+            <div class="text-sm text-gray-600 nomor">085231366364</div>
+        </div>
+        <a href="https://wa.me/6285231366364" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Dinda Naila Amelia</div>
+            <div class="text-sm text-gray-600 nomor">081251463141</div>
+        </div>
+        <a href="https://wa.me/6281251463141" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Dwita Hassya Kirani</div>
+            <div class="text-sm text-gray-600 nomor">081332190220</div>
+        </div>
+        <a href="https://wa.me/6281332190220" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ega Farrel Habibullah</div>
+            <div class="text-sm text-gray-600 nomor">085731287201</div>
+        </div>
+        <a href="https://wa.me/6285731287201" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ellya Olifina Rahmaraya</div>
+            <div class="text-sm text-gray-600 nomor">085730456274</div>
+        </div>
+        <a href="https://wa.me/6285730456274" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Elza Wahyu Ramadhani</div>
+            <div class="text-sm text-gray-600 nomor">081352268084</div>
+        </div>
+        <a href="https://wa.me/6281352268084" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Enzellina Zuhrotul Aulia</div>
+            <div class="text-sm text-gray-600 nomor">085736731924</div>
+        </div>
+        <a href="https://wa.me/6285736731924" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ermildha Farah Ristanto</div>
+            <div class="text-sm text-gray-600 nomor">089518943811</div>
+        </div>
+        <a href="https://wa.me/6289518943811" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Erna Nur Hidayah</div>
+            <div class="text-sm text-gray-600 nomor">089509858597</div>
+        </div>
+        <a href="https://wa.me/6289509858597" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Erwin Tri Prasetya</div>
+            <div class="text-sm text-gray-600 nomor">085648740749</div>
+        </div>
+        <a href="https://wa.me/6285648740749" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ezra Muhammad Ellias</div>
+            <div class="text-sm text-gray-600 nomor">081336923305</div>
+        </div>
+        <a href="https://wa.me/6281336923305" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Faizal Fitrohni</div>
+            <div class="text-sm text-gray-600 nomor">082331775443</div>
+        </div>
+        <a href="https://wa.me/6282331775443" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Fajar Ali Musa Nasution</div>
+            <div class="text-sm text-gray-600 nomor">wa.me/+6281234237865</div>
+        </div>
+        <a href="https://wa.me/+6281234237865" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Fania Natasya Ramadhani</div>
+            <div class="text-sm text-gray-600 nomor">081332836948</div>
+        </div>
+        <a href="https://wa.me/6281332836948" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Faqih Abdillah Herali</div>
+            <div class="text-sm text-gray-600 nomor">082125810133</div>
+        </div>
+        <a href="https://wa.me/6282125810133" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ferro Leonardo</div>
+            <div class="text-sm text-gray-600 nomor">081336416491</div>
+        </div>
+        <a href="https://wa.me/6281336416491" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Fildzah Khairina</div>
+            <div class="text-sm text-gray-600 nomor">085782015008</div>
+        </div>
+        <a href="https://wa.me/6285782015008" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Firdaus Ahnaf Hasbullah</div>
+            <div class="text-sm text-gray-600 nomor">081229602277</div>
+        </div>
+        <a href="https://wa.me/6281229602277" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Firman Maulana</div>
+            <div class="text-sm text-gray-600 nomor">081231877206</div>
+        </div>
+        <a href="https://wa.me/6281231877206" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Firyal Mahirah Qurratuain</div>
+            <div class="text-sm text-gray-600 nomor">083111292921</div>
+        </div>
+        <a href="https://wa.me/6283111292921" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ghaniyyah A’Ida Fathma</div>
+            <div class="text-sm text-gray-600 nomor">087810712324</div>
+        </div>
+        <a href="https://wa.me/6287810712324" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Gusti Putu Sebastian Reynado Adhi Suryana</div>
+            <div class="text-sm text-gray-600 nomor">081353200377</div>
+        </div>
+        <a href="https://wa.me/6281353200377" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Hadiyan Azka Ariaputra</div>
+            <div class="text-sm text-gray-600 nomor">089681245008</div>
+        </div>
+        <a href="https://wa.me/6289681245008" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Hafshah Wafa Syahida</div>
+            <div class="text-sm text-gray-600 nomor">088213282699</div>
+        </div>
+        <a href="https://wa.me/6288213282699" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Harits Dananjaya Surya Atmaja</div>
+            <div class="text-sm text-gray-600 nomor">088217890237</div>
+        </div>
+        <a href="https://wa.me/6288217890237" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Hilda Maufirotun Khoiriza</div>
+            <div class="text-sm text-gray-600 nomor">082331609212</div>
+        </div>
+        <a href="https://wa.me/6282331609212" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Hizkia Widya Setiawan</div>
+            <div class="text-sm text-gray-600 nomor">081233325263</div>
+        </div>
+        <a href="https://wa.me/6281233325263" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Hylmi Adelio Zayyan</div>
+            <div class="text-sm text-gray-600 nomor">081322841343</div>
+        </div>
+        <a href="https://wa.me/6281322841343" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ibnaty Rameyza Alya Karima</div>
+            <div class="text-sm text-gray-600 nomor">085236468717</div>
+        </div>
+        <a href="https://wa.me/6285236468717" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Icha Trechia Lady</div>
+            <div class="text-sm text-gray-600 nomor">089678671987</div>
+        </div>
+        <a href="https://wa.me/6289678671987" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Ilmiyah Khoirun Nisa'</div>
+            <div class="text-sm text-gray-600 nomor">085536987662</div>
+        </div>
+        <a href="https://wa.me/6285536987662" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Inan Jazilaturrohmah</div>
+            <div class="text-sm text-gray-600 nomor">081249575529</div>
+        </div>
+        <a href="https://wa.me/6281249575529" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Irfan Zain Muhammad Noor</div>
+            <div class="text-sm text-gray-600 nomor">08123782378</div>
+        </div>
+        <a href="https://wa.me/628123782378" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Isabelle Marcia Alexandra</div>
+            <div class="text-sm text-gray-600 nomor">08175222828</div>
+        </div>
+        <a href="https://wa.me/628175222828" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Iyasya Irfadana</div>
+            <div class="text-sm text-gray-600 nomor">085865068151</div>
+        </div>
+        <a href="https://wa.me/6285865068151" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Jasi Cephas</div>
+            <div class="text-sm text-gray-600 nomor">+263718086612</div>
+        </div>
+        <a href="https://wa.me/263718086612" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Jenny Caroline</div>
+            <div class="text-sm text-gray-600 nomor">083117483806</div>
+        </div>
+        <a href="https://wa.me/6283117483806" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Jessica Olyvia Gunawan</div>
+            <div class="text-sm text-gray-600 nomor">085892989092</div>
+        </div>
+        <a href="https://wa.me/6285892989092" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Johanes Tarulitua H Nainggolan</div>
+            <div class="text-sm text-gray-600 nomor">082138631196</div>
+        </div>
+        <a href="https://wa.me/6282138631196" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Juan Christian Liston Marbun</div>
+            <div class="text-sm text-gray-600 nomor">085692894849</div>
+        </div>
+        <a href="https://wa.me/6285692894849" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Kashka Rasendya Sambodho</div>
+            <div class="text-sm text-gray-600 nomor">081362435560</div>
+        </div>
+        <a href="https://wa.me/6281362435560" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Katarina Josephine Thomas</div>
+            <div class="text-sm text-gray-600 nomor">085900411886</div>
+        </div>
+        <a href="https://wa.me/6285900411886" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Kent Madda Lintang Gati Prayitno</div>
+            <div class="text-sm text-gray-600 nomor">081359802723</div>
+        </div>
+        <a href="https://wa.me/6281359802723" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Kirana Selly Ramadhani</div>
+            <div class="text-sm text-gray-600 nomor">085604729240</div>
+        </div>
+        <a href="https://wa.me/6285604729240" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Labiba Nareswari Suprapto</div>
+            <div class="text-sm text-gray-600 nomor">081233914205</div>
+        </div>
+        <a href="https://wa.me/6281233914205" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Laily Cahya Febriantina</div>
+            <div class="text-sm text-gray-600 nomor">082145971037</div>
+        </div>
+        <a href="https://wa.me/6282145971037" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Layla Wahyu Agustina</div>
+            <div class="text-sm text-gray-600 nomor">085834336899</div>
+        </div>
+        <a href="https://wa.me/6285834336899" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Livynia Khaira Anastacia Dacosta</div>
+            <div class="text-sm text-gray-600 nomor">081450390182</div>
+        </div>
+        <a href="https://wa.me/6281450390182" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">M. Roghib Sofa Mujtaba</div>
+            <div class="text-sm text-gray-600 nomor">085274962939</div>
+        </div>
+        <a href="https://wa.me/6285274962939" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Maitsa Tsuroyya Muntazh</div>
+            <div class="text-sm text-gray-600 nomor">wa.me/6285730370825</div>
+        </div>
+        <a href="https://wa.me/6285730370825" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Mamluatul 'Azazah</div>
+            <div class="text-sm text-gray-600 nomor">082336079484</div>
+        </div>
+        <a href="https://wa.me/6282336079484" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Marcela Yulianti Terry</div>
+            <div class="text-sm text-gray-600 nomor">089606236899</div>
+        </div>
+        <a href="https://wa.me/6289606236899" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Marcellino Saputra</div>
+            <div class="text-sm text-gray-600 nomor">081228165029</div>
+        </div>
+        <a href="https://wa.me/6281228165029" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Maria Innacensia Senja Diani</div>
+            <div class="text-sm text-gray-600 nomor">087854526899</div>
+        </div>
+        <a href="https://wa.me/6287854526899" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Maulidina Rahma Azaria</div>
+            <div class="text-sm text-gray-600 nomor">085733801322</div>
+        </div>
+        <a href="https://wa.me/6285733801322" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Meftareza Azzahra</div>
+            <div class="text-sm text-gray-600 nomor">082143871077</div>
+        </div>
+        <a href="https://wa.me/6282143871077" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Metta Sari</div>
+            <div class="text-sm text-gray-600 nomor">08116796694</div>
+        </div>
+        <a href="https://wa.me/628116796694" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Miftahul Jannah</div>
+            <div class="text-sm text-gray-600 nomor">0895331389288</div>
+        </div>
+        <a href="https://wa.me/62895331389288" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Mirza Amirul Furqon</div>
+            <div class="text-sm text-gray-600 nomor">082228421265</div>
+        </div>
+        <a href="https://wa.me/6282228421265" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Mohammad Fikri</div>
+            <div class="text-sm text-gray-600 nomor">087761474498</div>
+        </div>
+        <a href="https://wa.me/6287761474498" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Mohammad Rizki Romadoni</div>
+            <div class="text-sm text-gray-600 nomor">085854736549</div>
+        </div>
+        <a href="https://wa.me/6285854736549" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Muhamad Khairil Haqi</div>
+            <div class="text-sm text-gray-600 nomor">081932716782</div>
+        </div>
+        <a href="https://wa.me/6281932716782" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Muhammad Abriel Haifa Taufiq</div>
+            <div class="text-sm text-gray-600 nomor">081233596017</div>
+        </div>
+        <a href="https://wa.me/6281233596017" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Muhammad Arieq Reza Pahlevi</div>
+            <div class="text-sm text-gray-600 nomor">085292228601</div>
+        </div>
+        <a href="https://wa.me/6285292228601" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Muhammad Deryl Akmal</div>
+            <div class="text-sm text-gray-600 nomor">087842990777</div>
+        </div>
+        <a href="https://wa.me/6287842990777" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Muhammad Firman Ali</div>
+            <div class="text-sm text-gray-600 nomor">085604132720</div>
+        </div>
+        <a href="https://wa.me/6285604132720" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Muhammad Najmi Fata Arrihman</div>
+            <div class="text-sm text-gray-600 nomor">085895726256</div>
+        </div>
+        <a href="https://wa.me/6285895726256" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Muhammad Teguh Satrio Ernalendro</div>
+            <div class="text-sm text-gray-600 nomor">082127140012</div>
+        </div>
+        <a href="https://wa.me/6282127140012" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Nabila Riang Febrian</div>
+            <div class="text-sm text-gray-600 nomor">81339880079</div>
+        </div>
+        <a href="https://wa.me/81339880079" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Nadya Pramesthi Putri</div>
+            <div class="text-sm text-gray-600 nomor">089505773287</div>
+        </div>
+        <a href="https://wa.me/6289505773287" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Naila Naziha Putri Bayu</div>
+            <div class="text-sm text-gray-600 nomor">085731051551</div>
+        </div>
+        <a href="https://wa.me/6285731051551" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Natanael Markus Alpredo Panggabean</div>
+            <div class="text-sm text-gray-600 nomor">81266670082</div>
+        </div>
+        <a href="https://wa.me/81266670082" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Nathania Nisya Nevanita</div>
+            <div class="text-sm text-gray-600 nomor">082324515961</div>
+        </div>
+        <a href="https://wa.me/6282324515961" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Naura Hanifah Nabiha</div>
+            <div class="text-sm text-gray-600 nomor">0881024391674</div>
+        </div>
+        <a href="https://wa.me/62881024391674" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Naura Rania Widjayanto</div>
+            <div class="text-sm text-gray-600 nomor">081231089326</div>
+        </div>
+        <a href="https://wa.me/6281231089326" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Naura Riyadh Rossi Mas Alis</div>
+            <div class="text-sm text-gray-600 nomor">082333971082</div>
+        </div>
+        <a href="https://wa.me/6282333971082" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Nayla Maheswari</div>
+            <div class="text-sm text-gray-600 nomor">081212068684</div>
+        </div>
+        <a href="https://wa.me/6281212068684" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Nibras Faros Siahaan</div>
+            <div class="text-sm text-gray-600 nomor">081276696160</div>
+        </div>
+        <a href="https://wa.me/6281276696160" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Nicholas</div>
+            <div class="text-sm text-gray-600 nomor">08117488991</div>
+        </div>
+        <a href="https://wa.me/628117488991" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Niken Ayu Andini</div>
+            <div class="text-sm text-gray-600 nomor">082329703200</div>
+        </div>
+        <a href="https://wa.me/6282329703200" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Niza Hakimatussayyidah Zaini R</div>
+            <div class="text-sm text-gray-600 nomor">081333308921</div>
+        </div>
+        <a href="https://wa.me/6281333308921" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Noah Rafael Parulian Butarbutar</div>
+            <div class="text-sm text-gray-600 nomor">081371338345</div>
+        </div>
+        <a href="https://wa.me/6281371338345" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Nur Masita</div>
+            <div class="text-sm text-gray-600 nomor">081342356704</div>
+        </div>
+        <a href="https://wa.me/6281342356704" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Octriadin Surya Artha Pradana</div>
+            <div class="text-sm text-gray-600 nomor">082137139940</div>
+        </div>
+        <a href="https://wa.me/6282137139940" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Okta Dewa Arjun</div>
+            <div class="text-sm text-gray-600 nomor">081232584531</div>
+        </div>
+        <a href="https://wa.me/6281232584531" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Palupi Triana Nurulita</div>
+            <div class="text-sm text-gray-600 nomor">081260746983</div>
+        </div>
+        <a href="https://wa.me/6281260746983" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Rafi Adin Maulvi Nazir Ahmad</div>
+            <div class="text-sm text-gray-600 nomor">88991456677</div>
+        </div>
+        <a href="https://wa.me/88991456677" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Rafli Aziz Saputra</div>
+            <div class="text-sm text-gray-600 nomor">085236659437</div>
+        </div>
+        <a href="https://wa.me/6285236659437" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Rahma Sofia 'Abieda 'Ulya</div>
+            <div class="text-sm text-gray-600 nomor">085921080044</div>
+        </div>
+        <a href="https://wa.me/6285921080044" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Rahmatullah Akmal Mu'Afa Ahmada</div>
+            <div class="text-sm text-gray-600 nomor">081232743164</div>
+        </div>
+        <a href="https://wa.me/6281232743164" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Raisa Sana Ayesha Sukma</div>
+            <div class="text-sm text-gray-600 nomor">082140987003</div>
+        </div>
+        <a href="https://wa.me/6282140987003" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Raisiyah Qathrunnada</div>
+            <div class="text-sm text-gray-600 nomor">085174419072</div>
+        </div>
+        <a href="https://wa.me/6285174419072" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Revanza Farhan Athallah Rizky</div>
+            <div class="text-sm text-gray-600 nomor">087721894031</div>
+        </div>
+        <a href="https://wa.me/6287721894031" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Rifky Aji Darmawan</div>
+            <div class="text-sm text-gray-600 nomor">081316034150</div>
+        </div>
+        <a href="https://wa.me/6281316034150" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Risma Aulia Putri</div>
+            <div class="text-sm text-gray-600 nomor">081584769864</div>
+        </div>
+        <a href="https://wa.me/6281584769864" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Rizka Mareta</div>
+            <div class="text-sm text-gray-600 nomor">089531973260</div>
+        </div>
+        <a href="https://wa.me/6289531973260" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Roichanah Zahroh Alhaniyah</div>
+            <div class="text-sm text-gray-600 nomor">081246684235</div>
+        </div>
+        <a href="https://wa.me/6281246684235" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Safina Aulia Zahro</div>
+            <div class="text-sm text-gray-600 nomor">085721178624</div>
+        </div>
+        <a href="https://wa.me/6285721178624" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Salma Nabila My Zurrah</div>
+            <div class="text-sm text-gray-600 nomor">085748209806</div>
+        </div>
+        <a href="https://wa.me/6285748209806" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Satrio Adil Wicaksono</div>
+            <div class="text-sm text-gray-600 nomor">081938832990</div>
+        </div>
+        <a href="https://wa.me/6281938832990" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Shoofi Salsabila</div>
+            <div class="text-sm text-gray-600 nomor">089516621300</div>
+        </div>
+        <a href="https://wa.me/6289516621300" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Silvany Dhea Evelynawati</div>
+            <div class="text-sm text-gray-600 nomor">082213175445</div>
+        </div>
+        <a href="https://wa.me/6282213175445" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Siti Aisyah</div>
+            <div class="text-sm text-gray-600 nomor">087772213344</div>
+        </div>
+        <a href="https://wa.me/6287772213344" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Siti Mustiana</div>
+            <div class="text-sm text-gray-600 nomor">0895396015575</div>
+        </div>
+        <a href="https://wa.me/62895396015575" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Sormin, Stephen Nicholas</div>
+            <div class="text-sm text-gray-600 nomor">081511087628</div>
+        </div>
+        <a href="https://wa.me/6281511087628" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Syamsu Falah</div>
+            <div class="text-sm text-gray-600 nomor">085840622430</div>
+        </div>
+        <a href="https://wa.me/6285840622430" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Tsabita Nur Ainda</div>
+            <div class="text-sm text-gray-600 nomor">085604486832</div>
+        </div>
+        <a href="https://wa.me/6285604486832" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Veby Karunia Sihombing</div>
+            <div class="text-sm text-gray-600 nomor">082333010978</div>
+        </div>
+        <a href="https://wa.me/6282333010978" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Wardatus Sada Zuhriyah</div>
+            <div class="text-sm text-gray-600 nomor">083115710007</div>
+        </div>
+        <a href="https://wa.me/6283115710007" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Widi Andriani</div>
+            <div class="text-sm text-gray-600 nomor">081311205570</div>
+        </div>
+        <a href="https://wa.me/6281311205570" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Zaidan Irsyad Hajid</div>
+            <div class="text-sm text-gray-600 nomor">081217391523</div>
+        </div>
+        <a href="https://wa.me/6281217391523" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Zartha Navya Zezahtra</div>
+            <div class="text-sm text-gray-600 nomor">089518576050</div>
+        </div>
+        <a href="https://wa.me/6289518576050" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+    
+    <div class="aslab-card flex justify-between items-center bg-white p-4 rounded-2xl shadow">
+        <div>
+            <div class="font-bold nama">Zaydan Akmal Al-Hamdi</div>
+            <div class="text-sm text-gray-600 nomor">081338558300</div>
+        </div>
+        <a href="https://wa.me/6281338558300" target="_blank" class="chat-btn text-green-600 font-semibold">Chat</a>
+    </div>
+</div>
+
+<script>
+  // copas ini
+   // Animasi 
+     function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const main = document.getElementById('main-content');
+
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    main.classList.toggle('blurred');
+    main.classList.toggle('shifted');
+  }
+
+    // Tutup sidebar jika overlay diklik
+  document.getElementById('overlay').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
+    document.getElementById('main-content').classList.remove('blurred');
+    document.getElementById('main-content').classList.remove('shifted');
+  });
+
+  // Tombol Logout
+    function logout() {
+      localStorage.clear();
+      window.location.href = 'index.html';
+    }
+    // sampai ini
+  
+      const searchInput = document.getElementById('searchInput');
+    const moduleList = document.getElementById('moduleList');
+
+    searchInput.addEventListener('keyup', function () {
+      const query = this.value.toLowerCase();
+      const buttons = moduleList.querySelectorAll('button');
+
+      buttons.forEach(btn => {
+        const text = btn.textContent.toLowerCase();
+        btn.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    });
+
+        function filterAslab() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const aslab = document.querySelectorAll('#aslabList .aslab-card');
+        
+        aslab.forEach(card => {
+            const nama = card.querySelector('.nama').textContent.toLowerCase();
+            const nomor = card.querySelector('.nomor').textContent.toLowerCase();
+            card.style.display = (nama.includes(input) || nomor.includes(input)) ? 'flex' : 'none';
+        });
+    }
+</script>
+</body>

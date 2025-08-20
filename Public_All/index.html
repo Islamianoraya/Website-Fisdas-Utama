@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laboratorium Fisika Dasar ITS</title>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+
+
+  <style>
+   body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  height: 100vh;
+  background: linear-gradient(-45deg, #e3e3e3, #d4d4d4, #f5f5f5, #eeeeee);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+   .box {
+  background-color: #113F64;
+  border-radius: 16px;
+  padding: 20px 10px;  /* <--- lebih lega atas bawah */
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+    .cover-image {
+      width: 280px;
+      max-width: 95%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: sans-serif;
+      font-size: 10px;
+      color: black;
+      margin-bottom: 10px;
+    }
+
+   button {
+  font-family: sans-serif;
+  padding: 15px 30px;
+  font-size: 16px;
+  background: #065084;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: block;
+  margin: -25px auto 0 auto;  /* <--- Tambahkan margin atas 30px */
+}
+
+
+    button:hover {
+      background: #113F78;
+      transform: scale(1.03);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="box">
+    <img src="gambar_web/logo dan wordmark background transparan.png" alt="Cover Lab Fisika" class="cover-image">
+    <h1></h1>
+    <button onclick="window.location.href='dasbor_all.html'">Masuk</button>
+  </div>
+  
+</body>
+</html>
