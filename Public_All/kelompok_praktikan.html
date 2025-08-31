@@ -228,6 +228,42 @@
       background-color: #f0f0f0;
     }
 
+    .jadwal-card {
+    background: white;
+    border-radius: 4px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .jadwal-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+
+  .jadwal-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .jadwal-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #0f172a; /* slate-900 */
+    text-align: center;
+  }
+
+  .jadwal-img {
+    width: 100%;
+    border-radius: 3px;
+    display: block;
+  }
 </style>
 </head>
 <body>
@@ -334,6 +370,17 @@
 <!-- margin di body utama -->
 <div class="main" id="main-content">
 
+<!-- Id Card Praktikan -->
+<div class="jadwal-card">
+  <a href="https://docs.google.com/spreadsheets/d/1k3JorHqk5c3AzTnE5GacTt29LO4wUOecGHstW4DlpBg/edit?gid=227258487#gid=227258487" 
+     class="jadwal-link" target="_blank">
+    <p class="jadwal-title">
+      Jadwal Asisten Laboratorium Praktikum Fisika Mekanika Semester Gasal 2025/2026
+    </p>  
+    <img src="gambar_web/Halaman Depan.png" alt="Jadwal Praktikum" class="jadwal-img"/>
+  </a>
+</div>
+  
 <!-- Kelompok Praktikan -->
 <div class="module-list" id="moduleList">
   <button onclick="window.open('https://docs.google.com/spreadsheets/d/1pFmziW3qP4XRU9mI6ufFTxl8ldcZsKxUSCYtJMBWp98/edit?gid=0#gid=0', '_blank')"> Kelompok Hari Senin </button>
@@ -386,4 +433,5 @@
 </script>
 
 </body>
+
 
