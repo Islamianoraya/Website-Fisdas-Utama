@@ -493,7 +493,7 @@
 
     document.getElementById('date-text').textContent = `${hari}, ${tanggal} ${bulan} ${tahun}`;
 
-    const semesterMulai = new Date('2025-08-25'); 
+    const semesterMulai = new Date('2025-09-08'); 
     const selisihHari = Math.floor((now - semesterMulai) / (1000 * 60 * 60 * 24));
     const mingguKe = selisihHari >= 0 ? Math.floor(selisihHari / 7) + 1 : 0;
 
@@ -537,3 +537,4 @@ function laporBug() {
   </script>
 </body>
 </html>
+
