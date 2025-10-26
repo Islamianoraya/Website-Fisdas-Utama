@@ -496,10 +496,10 @@ const tahun = now.getFullYear();
 document.getElementById('date-text').textContent = `${hari}, ${tanggal} ${bulan} ${tahun}`;
 
 // Perhitungan minggu praktikum
-const semesterMulai = new Date('2025-09-09');
+const semesterMulai = new Date('2025-09-08');
 const selisihHari = Math.floor((now - semesterMulai) / (1000 * 60 * 60 * 24));
 
-let mingguKe = selisihHari >= 0 ? Math.floor(selisihHari / 7) + 1 : 0;
+let mingguKe = selisihHari >= 0 ? Math.floor(selisihHari / 7) + 1;
 
 // Kurangi 2 minggu libur
 mingguKe = Math.max(mingguKe - 2, 0);
@@ -544,6 +544,7 @@ function laporBug() {
   </script>
 </body>
 </html>
+
 
 
 
