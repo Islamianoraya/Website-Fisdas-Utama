@@ -501,10 +501,8 @@ const selisihHari = Math.floor((now - semesterMulai) / (1000 * 60 * 60 * 24));
 
 let mingguKe = selisihHari >= 0 ? Math.floor(selisihHari / 7) + 1 : 0;
 
-// Kurangin 2 minggu libur setelah minggu ke-4
-if (mingguKe > 4) {
-  mingguKe += -2;
-}
+// Kurangi 2 minggu yang tidak dihitung (libur)
+mingguKe = Math.max(mingguKe - 2, 0); // tidak boleh minus
     
 document.getElementById('minggu-text').textContent = `Minggu Praktikum ke-${mingguKe}`;
 
@@ -546,6 +544,7 @@ function laporBug() {
   </script>
 </body>
 </html>
+
 
 
 
