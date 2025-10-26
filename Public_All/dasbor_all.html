@@ -480,25 +480,33 @@
 <!-- Java Script -->
   <script>
    
-    // Waktu otomatis 
-    const now = new Date();
-    const hariList = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-    const bulanList = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-                       'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  // Waktu otomatis 
+const now = new Date();
+const hariList = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+const bulanList = [
+  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+];
 
-    const hari = hariList[now.getDay()];
-    const tanggal = now.getDate();
-    const bulan = bulanList[now.getMonth()];
-    const tahun = now.getFullYear();
+const hari = hariList[now.getDay()];
+const tanggal = now.getDate();
+const bulan = bulanList[now.getMonth()];
+const tahun = now.getFullYear();
 
-    document.getElementById('date-text').textContent = `${hari}, ${tanggal} ${bulan} ${tahun}`;
+document.getElementById('date-text').textContent = `${hari}, ${tanggal} ${bulan} ${tahun}`;
 
-    const semesterMulai = new Date('2025-09-22'); 
-    const selisihHari = Math.floor((now - semesterMulai) / (1000 * 60 * 60 * 24)); 
-    const mingguKe = selisihHari >= 0 ? Math.floor(selisihHari / 7) + 1 : 0;
+// Perhitungan minggu praktikum
+const semesterMulai = new Date('2025-09-22');
+const selisihHari = Math.floor((now - semesterMulai) / (1000 * 60 * 60 * 24));
 
+let mingguKe = selisihHari >= 0 ? Math.floor(selisihHari / 7) + 1 : 0;
 
-    document.getElementById('minggu-text').textContent = `Minggu Praktikum ke-${mingguKe}`;
+// Tambah 2 minggu libur setelah minggu ke-4
+if (mingguKe > 4) {
+  mingguKe += 2;
+}
+
+document.getElementById('minggu-text').textContent = `Minggu Praktikum ke-${mingguKe}`;
 
     // Animasi 
      function toggleSidebar() {
@@ -538,6 +546,7 @@ function laporBug() {
   </script>
 </body>
 </html>
+
 
 
 
